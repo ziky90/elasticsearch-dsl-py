@@ -46,6 +46,8 @@ def test_iterating_over_response_gives_you_hits(dummy_response):
 
     assert hits[1].meta.parent == 'elasticsearch'
 
+    assert hits[0].fields() == ['city', 'name', 'meta']
+
 def test_hits_get_wrapped_to_contain_additional_attrs(dummy_response):
     res = result.Response(dummy_response)
     hits = res.hits
@@ -73,4 +75,3 @@ def test_slicing_on_response_slices_on_hits(dummy_response):
 
     assert res[0] is res.hits[0]
     assert res[::-1] == res.hits[::-1]
-

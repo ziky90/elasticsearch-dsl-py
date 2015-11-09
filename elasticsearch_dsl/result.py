@@ -50,6 +50,7 @@ class ResultMeta(AttrDict):
             d['doc_type'] = d.pop('type')
         super(ResultMeta, self).__init__(d)
 
+
 class Result(AttrDict):
     def __init__(self, document):
         data = {}
@@ -61,6 +62,11 @@ class Result(AttrDict):
         super(Result, self).__init__(data)
         # assign meta as attribute and not as key in self._d_
         super(AttrDict, self).__setattr__('meta', ResultMeta(document))
+
+    def fields(self):
+        fields = AttrDict.fields(self)
+        fields.append("meta")
+        return fields
 
     def __dir__(self):
         # be sure to expose meta in dir(self)
